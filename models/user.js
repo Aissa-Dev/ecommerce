@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const uuid = require("uuid/v1");
+const crypto = require("crypto");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -14,7 +16,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
-    password: {
+    hached_password: {
       type: String,
       required: true
     },
@@ -36,3 +38,28 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema
+  .virtual("password")
+  .set(function (password) {
+    this._password = [password];
+    this.salt = uuid();
+    this.hached_password = this.cryptPassword(password);
+  })
+  .get(function () {
+    return this._password;
+  });
+
+userSchema.methods = {
+  cryptPassword: function (password) {
+    if (!password) return "";
+    try {
+      return crypto
+        .createHmac("sha1", this.salt)
+        .update("I love cupcakes")
+        .digest("hex");
+    } catch (err) {
+      return "";
+    }
+  }
+};
