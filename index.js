@@ -17,6 +17,8 @@ mongoose
   .catch((e) => {
     console.log("Can not connect " + e);
   });
+//middlewares
+app.use(express.json());
 
 app.use("/api/users", userRoutes);
 
