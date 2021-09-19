@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const expressValidator = require("express-validator");
 
 // import routes
 const userRoutes = require("./routes/users");
@@ -19,6 +20,7 @@ mongoose
   });
 //middlewares
 app.use(express.json());
+app.use(expressValidator());
 
 app.use("/api/users", userRoutes);
 
