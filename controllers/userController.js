@@ -13,3 +13,19 @@ exports.signup = (req, res) => {
     res.send(user);
   });
 };
+
+exports.signin = (req, res) => {
+  const { email, password } = req.body;
+
+  User.findOne({ email }, (err, user) => {
+    if (err || !user) {
+      return res
+        .status(400)
+        .json({ error: "message not fount, please signup !" });
+    }
+
+    if (!user.authenticate(password)) {
+      return res.status().json({ error: "Email and Password dont Match" });
+    }
+  });
+};

@@ -51,6 +51,9 @@ userSchema
   });
 
 userSchema.methods = {
+  authenticated: function (plainText) {
+    return this.cryptPassword(plainText) === this.hached_password(plainText);
+  },
   cryptPassword: function (password) {
     if (!password) return "";
     try {
