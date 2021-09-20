@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema(
 userSchema
   .virtual("password")
   .set(function (password) {
-    this._password = [password];
+    this._password = password;
     this.salt = uuid();
     this.hached_password = this.cryptPassword(password);
   })
@@ -51,15 +51,15 @@ userSchema
   });
 
 userSchema.methods = {
-  authenticated: function (plainText) {
-    return this.cryptPassword(plainText) === this.hached_password(plainText);
+  authenticate: function (plainText) {
+    return this.cryptPassword(plainText) === this.hached_password;
   },
   cryptPassword: function (password) {
     if (!password) return "";
     try {
       return crypto
         .createHmac("sha1", this.salt)
-        .update("I love cupcakes")
+        .update(password)
         .digest("hex");
     } catch (err) {
       return "";

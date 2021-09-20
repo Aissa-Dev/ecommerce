@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const expressValidator = require("express-validator");
+const cookieParser = require("cookie-parser");
 
 // import routes
 const userRoutes = require("./routes/users");
@@ -21,6 +22,7 @@ mongoose
 //middlewares
 app.use(express.json());
 app.use(expressValidator());
+app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 
