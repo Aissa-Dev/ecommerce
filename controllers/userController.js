@@ -18,7 +18,7 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   const { email, password } = req.body;
 
-  console.log("req body : ", email, " ", password);
+  //console.log("req body : ", email, " ", password);
   User.findOne({ email }, (err, user) => {
     if (err || !user) {
       return res
