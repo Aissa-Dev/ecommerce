@@ -5,7 +5,7 @@ const {
   signup,
   signin,
   signout
-} = require("../controllers/userController");
+} = require("../controllers/authController");
 const { userSignUpValidator } = require("../middlewares/userValidator");
 const { requireSignIn } = require("../middlewares/auth.js");
 router.get("/", greeting);
