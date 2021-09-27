@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 
 // import routes
 const authRoutes = require("./routes/auth");
+const usersRoutes = require("./routes/users");
 
 //config app
 const app = express();
@@ -25,6 +26,7 @@ app.use(expressValidator());
 app.use(cookieParser());
 
 app.use("/api", authRoutes);
+app.use("/api", usersRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
